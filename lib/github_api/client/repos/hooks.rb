@@ -52,6 +52,24 @@ module Github
     end
     alias :all :list
 
+    
+    # List repository hooks by id
+    #
+    # @example
+    #   github = Github.new
+    #   github.repos.hooks.list 'user-id'
+    #   github.repos.hooks.list 'user-id' { |hook| ... }
+    #
+    # @api public
+    def list_by_id(*args)
+      arguments(args, required: [:id])
+
+      response = get_request("/repos/#{arguments.id}/hooks", arguments.params)
+      return response unless block_given?
+      response.each { |el| yield el }
+    end
+    alias :all :list_by_id
+
     # Get a single hook
     #
     # @example
