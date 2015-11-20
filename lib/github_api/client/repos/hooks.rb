@@ -64,7 +64,7 @@ module Github
     def list_by_id(*args)
       arguments(args, required: [:id])
 
-      response = get_request("/repos/#{arguments.id}/hooks", arguments.params)
+      response = get_request("/repositories/#{arguments.id}/hooks", arguments.params)
       return response unless block_given?
       response.each { |el| yield el }
     end
